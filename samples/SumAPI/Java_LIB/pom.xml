@@ -16,18 +16,20 @@
 		<maven.eclipse.plugin.version>2.10</maven.eclipse.plugin.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-math3</artifactId>
-			<version>3.5</version>
-			<scope>compile</scope>
-		</dependency>
 		<!-- not required, added to test transitive dependencies -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>5.1.0</version>
 		</dependency>
+		<!-- required --> 
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.5</version>
+			<scope>compile</scope>
+		</dependency>
+		
 		<!-- not required, added to test that scope 'provided' is skipped  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -41,6 +43,7 @@
 		<outputDirectory>bin</outputDirectory>
 		<plugins>
 			<!-- following plugins are required for ibmint --> 
+			<!-- 
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<configuration>
@@ -59,6 +62,8 @@
 					</execution>
 				</executions>
 			</plugin>
+			--> 
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

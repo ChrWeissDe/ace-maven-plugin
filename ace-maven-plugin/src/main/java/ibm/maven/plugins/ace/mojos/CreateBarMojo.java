@@ -1,5 +1,16 @@
 package ibm.maven.plugins.ace.mojos;
 
+import static org.twdata.maven.mojoexecutor.MojoExecutor.artifactId;
+import static org.twdata.maven.mojoexecutor.MojoExecutor.configuration;
+import static org.twdata.maven.mojoexecutor.MojoExecutor.element;
+import static org.twdata.maven.mojoexecutor.MojoExecutor.executeMojo;
+import static org.twdata.maven.mojoexecutor.MojoExecutor.executionEnvironment;
+import static org.twdata.maven.mojoexecutor.MojoExecutor.goal;
+import static org.twdata.maven.mojoexecutor.MojoExecutor.groupId;
+import static org.twdata.maven.mojoexecutor.MojoExecutor.name;
+import static org.twdata.maven.mojoexecutor.MojoExecutor.plugin;
+import static org.twdata.maven.mojoexecutor.MojoExecutor.version;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -408,6 +419,28 @@ public class CreateBarMojo extends AbstractMojo {
 	}
 
 	public void ibmintCompile() throws MojoFailureException {
+		
+		String UNPACK_ace_DEPENDENCY_TYPES = "jar";
+		String UNPACK_ace_DEPENDENCY_SCOPE = "compile";
+		
+		/* step 01 unpack dependencies */ 
+		// step 1:
+				// unpack all dependencies that match the given scope; target:
+				// unpackDependencyDirectory
+		
+		try { 
+				executeMojo(plugin(groupId("org.apache.maven.plugins"), artifactId("maven-dependency-plugin"), version("2.8")),
+						goal("unpack-dependencies"),
+						configuration(element(name("outputDirectory"), project.getBasedir().toString()),
+								element(name("includeTypes"), UNPACK_ace_DEPENDENCY_TYPES),
+								element(name("includeScope"), UNPACK_ace_DEPENDENCY_SCOPE)),
+						executionEnvironment(project, session, buildPluginManager));
+				
+		} catch (Exception e) {
+			getLog().error("Exception: " + e.getMessage());
+			e.printStackTrace();
+		}
+
 
 		List<String> params = new ArrayList<String>();
 		List<String> commands = new ArrayList<String>();
@@ -522,7 +555,9 @@ public class CreateBarMojo extends AbstractMojo {
 		// handle MQSI_EXTRA_BUILD_CLASSPATH
 
 		if ((classpathExt != null) && (classpathExt.length() > 0)) {
+			/* 
 			commands.add(exportCommand + " MQSI_EXTRA_BUILD_CLASSPATH=" + classpathExt + " ");
+			*/ 
 		}
 
 		commands.add(ibmintCommand.toString());

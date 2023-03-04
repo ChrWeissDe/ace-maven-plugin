@@ -137,18 +137,11 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-math3</artifactId>
-			<version>3.5</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.ibm.ace.test</groupId>
 			<version>1.0.0-SNAPSHOT</version>
 			<artifactId>Java_LIB</artifactId>
 			<type>pom</type>
 			<scope>import</scope>
 		</dependency>
-		 
 	</dependencies>
 </project>
